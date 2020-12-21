@@ -1,0 +1,33 @@
+{
+  "package": {
+    "scripts": {
+      "start": "react-app-rewired start",
+      "build": "react-app-rewired --max-old-space-size=8000 build",
+      "build-unity": "set BUILD_TARGET=unity& set PUBLIC_URL=./& react-app-rewired --max-old-space-size=8000 build",
+      "mocks": "node mocks/index.js"
+    },
+    "dependencies": {
+      "@intellective/core": "2020.1.1-alpha.90",
+      "@intellective/forms": "2020.1.0-alpha.4",
+      "@material-ui/core": "^4.11.2",
+      "@material-ui/icons": "^4.11.2",
+      "@material-ui/lab": "^4.0.0-alpha.57",
+      "@material-ui/styles": "^4.11.2",
+      "ramda": "^0.27.1",
+      "react-redux": "^7.2.1",
+      "react-app-rewired": "^2.1.6"
+    },
+    "babel": {
+      "presets": [
+        "@babel/env",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-react-jsx",
+        "@babel/plugin-transform-spread"
+      ]
+    }
+  }
+}

@@ -1,30 +1,26 @@
 {
-  "name": "epermitting-ui",
-  "description": "ePermitting React Application",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired --max-old-space-size=8000 build",
-    "build-unity": "set BUILD_TARGET=unity& set PUBLIC_URL=./& react-app-rewired --max-old-space-size=8000 build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "server": "node server"
+  "name": "unity-forms",
+  "version": "2020.1.0-alpha.1",
+  "main": "template.json",
+  "description": "Unity Forms Template",
+  "author": {
+    "name": "Intellective",
+    "url": "www.intellective.com"
   },
-  "dependencies": {
-    "@intellective/core": "2020.1.1-alpha.90",
-    "@intellective/forms": "2020.1.0-alpha.4",
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "@material-ui/styles": "^4.11.2",
-    "ramda": "^0.27.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-pdf": "^5.0.0",
-    "react-redux": "^7.2.1",
-    "react-scripts": "4.0.0",
-    "react-app-rewired": "^2.1.6"
+  "license": "Intellective",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intellectivelab/unity-forms-template"
+  },
+  "publishConfig": {
+    "registry": "https://npm.intellective.com/repository/npm-main/"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "scripts": {
+    "mocks": "node template/mocks"
   },
   "devDependencies": {
     "body-parser": "latest",
@@ -35,32 +31,5 @@
     "node-rsql-parser": "latest",
     "sqlite3": "latest",
     "uuid": "latest"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "@babel/env",
-      "@babel/react"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-transform-react-jsx",
-      "@babel/plugin-transform-spread"
-    ]
   }
 }
