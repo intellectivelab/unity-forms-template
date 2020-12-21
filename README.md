@@ -1,4 +1,6 @@
-# Unity Forms Application Template
+# Unity Forms Template
+
+This is a React application template using for creating solutions based on the Unity Forms framework.
 
 # Backend development
 
