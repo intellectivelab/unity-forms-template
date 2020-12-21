@@ -1,4 +1,4 @@
-package com.intellective.unity.configuration.external;
+package com.intellective.unity.configuration.portal;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
-@Profile("external-application")
+@Profile("portal")
 @Configuration
 public class OAuth2Config {
 

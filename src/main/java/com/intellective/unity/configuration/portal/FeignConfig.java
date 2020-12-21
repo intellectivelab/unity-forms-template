@@ -1,4 +1,4 @@
-package com.intellective.unity.configuration.external;
+package com.intellective.unity.configuration.portal;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 
-@Profile("external-application")
+@Profile("portal")
 @EnableFeignClients(basePackages = "com.intellective.unity")
 @Configuration
 public class FeignConfig {

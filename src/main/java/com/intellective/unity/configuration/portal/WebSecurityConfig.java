@@ -1,6 +1,5 @@
-package com.intellective.unity.configuration.external;
+package com.intellective.unity.configuration.portal;
 
-import com.intellective.unity.security.DeepAuthenticationProcessingFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +17,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-@Profile("external-application")
+@Profile("portal")
 @Configuration
 @EnableWebSecurity
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -26,10 +25,10 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("login.login-url")
-    private final String login = "https://filings.deep.stag.ct.gov/DEEPPortal/";
+    private final String loginFormUrl;
 
     @Value("login.home-url")
-    private final String home = "/index.html?p=external";
+    private final String home;
 
     private final AuthenticationManager authenticationManager;
 
@@ -48,15 +47,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .anonymous().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(login))
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(loginFormUrl))
                 .and()
 
                 .logout().permitAll();
     }
 
-    private DeepAuthenticationProcessingFilter createFilter() {
-        val filter = new DeepAuthenticationProcessingFilter();
-        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(login));
+    private PortalAuthenticationProcessingFilter createFilter() {
+        val filter = new PortalAuthenticationProcessingFilter();
+
+        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(loginFormUrl));
         filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler(home));
         filter.setAuthenticationManager(authenticationManager);
 

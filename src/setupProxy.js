@@ -3,7 +3,7 @@ const {createProxyMiddleware} = require('http-proxy-middleware');
 module.exports = function (app) {
     const filter = (pathname) => pathname.match('^/api') || pathname.match('^(/.*)?/public/api');
     const formsApiFilter = (pathname) => pathname.match('^/forms-api');
-    const deepApiFilter = (pathname) => pathname.match('^/deep-api');
+    const deepApiFilter = (pathname) => pathname.match('^/domain-api');
 
 	//-------------------------------------------------
     // Intellective
@@ -38,11 +38,11 @@ module.exports = function (app) {
     // const applyHeaders = (request) => {
     //     const token = "<oAuthToken>"
     //     const user = "cn=dshakhovkin,ou=People,dc=epermit,dc=com"
-    //     const userType = "EXTERNAL"
+    //     const userType = "SUBMITTER"
     //     if (token) {
     //         request.setHeader('Authorization', `bearer ${token}`)
-    //         request.setHeader('deep-user-id', user)
-    //         request.setHeader('deep-user-type', userType)
+    //         request.setHeader('user-info', user)
+    //         request.setHeader('user-type', userType)
     //     }
     // };
     // app.use(createProxyMiddleware(formsApiFilter, {

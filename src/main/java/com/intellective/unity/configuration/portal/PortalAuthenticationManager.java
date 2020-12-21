@@ -1,4 +1,4 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import com.google.common.base.Strings;
 import com.intellective.unity.client.UserInfoClient;
@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class DeepAuthenticationManager implements AuthenticationManager {
+public class PortalAuthenticationManager implements AuthenticationManager {
 
     private final UserInfoClient userInfoClient;
 
@@ -30,7 +30,7 @@ public class DeepAuthenticationManager implements AuthenticationManager {
 
         return Try.of(() -> userInfoClient.getUserInfo(token))
                 .filter(it -> it == null || Strings.isNullOrEmpty(it.getUserId()))
-                .map(DeepAuthentication::new)
+                .map(PortalAuthentication::new)
                 .getOrElseThrow(e -> new BadCredentialsException("Could not validate token", e));
 
     }

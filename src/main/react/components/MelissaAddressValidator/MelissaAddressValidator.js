@@ -3,10 +3,12 @@ import React, {useEffect, useState} from "react";
 import * as R from "ramda";
 
 import {useSelector} from "react-redux";
-import {checkStatus, debounce} from "@intellective/core";
-import {DEEP_API_URL} from "../../utils/integration";
 
-const DEEP_API_MELISSA_URL = DEEP_API_URL + "/melissa/verify";
+import {checkStatus, debounce} from "@intellective/core";
+
+import {DOMAIN_API_URL} from "../../utils/integration";
+
+const DEEP_API_MELISSA_URL = DOMAIN_API_URL + "/melissa/verify";
 
 const debouncedCallMelissaValidation = debounce((addressObj, onSuccess, onError) => {
 	fetch(DEEP_API_MELISSA_URL, {

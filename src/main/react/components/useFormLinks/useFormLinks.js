@@ -1,6 +1,6 @@
 import * as R from "ramda";
 
-export const FORMS_API_URL = "/forms-api/1.0";
+export const FORMS_API_URL = "/forms-api";
 
 export default (props) => {
 

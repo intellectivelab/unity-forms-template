@@ -1,4 +1,4 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import com.intellective.unity.model.UserInfo;
 import com.netflix.zuul.ZuulFilter;
@@ -41,10 +41,10 @@ public class ZuulOauth2TokenRelayFilter extends ZuulFilter {
 
 
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .filter(it -> it instanceof DeepAuthentication)
+                .filter(it -> it instanceof PortalAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(it -> {
-                    ctx.set("deep-user-info", it.getPrincipal());
+                    ctx.set("user-info", it.getPrincipal());
                     return true;
                 }).orElse(false);
     }
@@ -52,11 +52,14 @@ public class ZuulOauth2TokenRelayFilter extends ZuulFilter {
     @Override
     public Object run() {
         val ctx = RequestContext.getCurrentContext();
+
         val accessToken = getAccessToken(ctx);
+
         ctx.addZuulRequestHeader("authorization",
                 accessToken.getTokenType() + " " + accessToken.getValue());
-        ctx.addZuulRequestHeader("deep-user-id", ((UserInfo) ctx.get("deep-user-info")).getUserId());
-        ctx.addZuulRequestHeader("deep-user-type", "EXTERNAL");
+        ctx.addZuulRequestHeader("user-info", ((UserInfo) ctx.get("user-info")).getUserId());
+        ctx.addZuulRequestHeader("user-type", "SUBMITTER");
+
         return null;
     }
 

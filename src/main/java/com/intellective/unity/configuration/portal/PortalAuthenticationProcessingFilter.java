@@ -1,4 +1,4 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Log4j2
-public class DeepAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+public class PortalAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    public DeepAuthenticationProcessingFilter() {
+    public PortalAuthenticationProcessingFilter() {
         this("/login");
     }
 
-    public DeepAuthenticationProcessingFilter(String defaultFilterProcessesUrl) {
+    public PortalAuthenticationProcessingFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
     }
 

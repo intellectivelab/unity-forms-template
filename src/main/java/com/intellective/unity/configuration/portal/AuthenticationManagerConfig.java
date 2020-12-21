@@ -1,8 +1,6 @@
-package com.intellective.unity.configuration.external;
+package com.intellective.unity.configuration.portal;
 
 import com.intellective.unity.client.UserInfoClient;
-import com.intellective.unity.security.DeepAuthenticationManager;
-import com.intellective.unity.security.DevAuthenticationManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 
-@Profile({"external-application"})
+@Profile({"portal"})
 @Configuration
 @RequiredArgsConstructor
 public class AuthenticationManagerConfig {
@@ -20,13 +18,13 @@ public class AuthenticationManagerConfig {
     @Profile("debug-authentication")
     @Bean
     public AuthenticationManager alwaysValid() {
-        return new DevAuthenticationManager(userInfoClient);
+        return new DebugAuthenticationManager(userInfoClient);
     }
 
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationManager deepAuthenticationManager() {
-        return new DeepAuthenticationManager(userInfoClient);
+        return new PortalAuthenticationManager(userInfoClient);
     }
 
 }

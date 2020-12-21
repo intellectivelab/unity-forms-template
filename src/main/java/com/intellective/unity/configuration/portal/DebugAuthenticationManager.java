@@ -1,4 +1,4 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import com.intellective.unity.client.UserInfoClient;
 import com.intellective.unity.model.UserInfo;
@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class DevAuthenticationManager implements AuthenticationManager {
+public class DebugAuthenticationManager implements AuthenticationManager {
 
     private final UserInfoClient userInfoClient;
 
@@ -25,7 +25,7 @@ public class DevAuthenticationManager implements AuthenticationManager {
                 .map(it -> (String) authentication.getPrincipal())
                 .filter(StringUtils::isNotEmpty)
                 .map(this::toUserInfo)
-                .map(DeepAuthentication::new)
+                .map(PortalAuthentication::new)
                 .orElseThrow(() -> new InvalidTokenException("Invalid token (token not found)"));
     }
 
@@ -33,7 +33,7 @@ public class DevAuthenticationManager implements AuthenticationManager {
         return Try.of(() -> userInfoClient.getUserInfoByUserId(userId))
                 .getOrElse(UserInfo.builder()
                         .userId(userId)
-                        .userType(UserType.EXTERNAL)
+                        .userType(UserType.SUBMITTER)
                         .email("stub@intellective.com")
                         .userName("stub user name")
                         .firstName("stub fist name")

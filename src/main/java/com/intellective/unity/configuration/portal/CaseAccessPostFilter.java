@@ -1,7 +1,7 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intellective.unity.model.EPermittingCase;
+import com.intellective.unity.model.DomainCase;
 import com.intellective.unity.model.UserInfo;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.exception.ZuulException;
@@ -52,13 +52,15 @@ public class CaseAccessPostFilter extends ZuulFilter {
     @SneakyThrows
     public Object run() {
         val context = getCurrentContext();
-        val userId = ((UserInfo) context.get("deep-user-info")).getUserId();
+        val userId = ((UserInfo) context.get("user-info")).getUserId();
 
         InputStream stream = context.getResponseDataStream();
         String body = StreamUtils.copyToString(stream, StandardCharsets.UTF_8);
 
-        val ePermittingCase = mapper.readValue(body, EPermittingCase.class);
-        val valid = caseSecurityChecker.check(ePermittingCase, userId);
+        val aCase = mapper.readValue(body, DomainCase.class);
+
+        val valid = caseSecurityChecker.check(aCase, userId);
+
         if (!valid) {
             throw new ZuulException("Rejected by the filter", HttpServletResponse.SC_FORBIDDEN, "Access is not allowed.");
         }

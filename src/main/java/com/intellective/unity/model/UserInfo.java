@@ -10,10 +10,15 @@ import org.springframework.security.core.AuthenticatedPrincipal;
 @ToString
 public class UserInfo implements AuthenticatedPrincipal {
     UserType userType;
+
     String userId;
+
     String userName;
+
     String firstName;
+
     String lastName;
+
     String email;
 
     @Override

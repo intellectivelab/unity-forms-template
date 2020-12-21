@@ -1,9 +1,8 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.intellective.unity.configuration.external.CaseSecurityProperties;
 import com.intellective.unity.exception.BadRequestException;
 import com.intellective.unity.exception.ForbiddenException;
 import com.intellective.unity.model.UserInfo;
@@ -65,7 +64,7 @@ public class CaseAccessPreFilter extends ZuulFilter {
             log.debug("PreFilter: /**/1.0.0/cases/{caseType}/query");
 
             val userFilter = findUserFilter();
-            val userId = ((UserInfo) context.get("deep-user-info")).getUserId();
+            val userId = ((UserInfo) context.get("user-info")).getUserId();
 
             val body = getRequestBody(context);
             log.trace("Body: {}", body);
@@ -113,7 +112,7 @@ public class CaseAccessPreFilter extends ZuulFilter {
             log.debug("PreFilter: /**/1.0.0/cases/{caseType}/{caseId}/**");
 
             val requestParameters = extractRequestParameters("/**/1.0.0/cases/{caseType}/{caseId}/**", requestUri);
-            val userId = ((UserInfo) context.get("deep-user-info")).getUserId();
+            val userId = ((UserInfo) context.get("user-info")).getUserId();
             verifyCase(requestParameters, userId);
 
             return true;
@@ -134,7 +133,7 @@ public class CaseAccessPreFilter extends ZuulFilter {
             log.debug("PreFilter: PUT: /**/1.0.0/cases/{caseType}/{caseId}");
 
             val requestParameters = extractRequestParameters("/**/1.0.0/cases/{caseType}/{caseId}", requestUri);
-            val userId = ((UserInfo) context.get("deep-user-info")).getUserId();
+            val userId = ((UserInfo) context.get("user-info")).getUserId();
             verifyCase(requestParameters, userId);
 
             val body = getRequestBody(context);
@@ -182,7 +181,7 @@ public class CaseAccessPreFilter extends ZuulFilter {
 
             val params = Optional.ofNullable(stringToMap(body))
                     .orElse(new HashMap<>());
-            val userInfo = (UserInfo) context.get("deep-user-info");
+            val userInfo = (UserInfo) context.get("user-info");
             params.put(caseSecurityProperties.getAuthorPropertyName(), userInfo.getUserId());
             params.put(caseSecurityProperties.getCreatorPropertyName(), userInfo.getFullName());
             params.put(caseSecurityProperties.getCreatorEmailPropertyName(), userInfo.getEmail());
@@ -212,7 +211,7 @@ public class CaseAccessPreFilter extends ZuulFilter {
     @SneakyThrows
     public Object run() {
         val context = getCurrentContext();
-        val userInfo = (UserInfo) context.get("deep-user-info");
+        val userInfo = (UserInfo) context.get("user-info");
 
         if (userInfo == null || Strings.isNullOrEmpty(userInfo.getUserId())) {
             throw new ForbiddenException("Anonymous users are note allowed");

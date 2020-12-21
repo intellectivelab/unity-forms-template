@@ -1,4 +1,4 @@
-package com.intellective.unity.filter;
+package com.intellective.unity.configuration.portal;
 
 import com.netflix.zuul.ZuulFilter;
 import lombok.SneakyThrows;

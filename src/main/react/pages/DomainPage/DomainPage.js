@@ -6,27 +6,11 @@ import clsx from 'clsx';
 
 import {Sidebar} from '@intellective/core';
 
-import {AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography, withStyles} from "@material-ui/core";
+import {AppBar, Box, Hidden, IconButton, Toolbar, Tooltip, Typography, withStyles} from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
 
 import styles from "./styles";
-
-const StateLogoPrimary = () => {
-	return (
-		<Link href="http://ct.gov/">
-			<img src="./ct_logo.svg" alt="State of Connecticut"/>
-		</Link>
-	);
-};
-
-const StateLogoSecondary = () => {
-	return (
-		<Link href="http://ct.gov/">
-			<img src="./logo.svg" alt="State of Connecticut"/>
-		</Link>
-	);
-};
 
 const AppBarInterior = props => {
 	const {classes, variant, title, pages = [], logo, userInfo, appBarVisible = true, ...otherProps} = props;
@@ -63,21 +47,15 @@ const DomainPage = (props) => {
 
 	const logo = (
 		<Box display="flex" flexDirection="row" flexWrap="noWrap" alignItems="center">
-			<Hidden mdDown>
-				<StateLogoPrimary/>
-
+			<Hidden smDown>
 				<Box mx={1}>
 					<Typography variant="subtitle1" color="inherit" noWrap>{title}</Typography>
 				</Box>
 			</Hidden>
-
-			<Hidden lgUp>
-				<StateLogoSecondary/>
-			</Hidden>
 		</Box>
 	);
 
-	const drawerTitle = <AppBar position="relative"><Toolbar variant="dense"><StateLogoSecondary/></Toolbar></AppBar>;
+	const drawerTitle = <AppBar position="relative"><Toolbar variant="dense"/></AppBar>;
 
 	return (
 		<div className={classes.root}>

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
-public class EPermittingCase {
+public class DomainCase {
     String caseType;
     String caseId;
 

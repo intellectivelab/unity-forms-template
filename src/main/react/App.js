@@ -10,15 +10,11 @@ import DomainThemeBuilder from "./themes/DomainThemeBuilder";
 import DomainActionFactory from "./factories/DomainActionFactory";
 import DomainComponentFactory from "./factories/DomainComponentFactory";
 import DomainFormFieldFactory from "./factories/DomainFormFieldFactory";
+
+import DomainPage from "./pages/DomainPage/DomainPage";
 import DomainPageLayout from "./pages/DomainPage/DomainPageLayout";
 
-import InternalPage from "./pages/InternalPage/InternalPage";
-
-import ExternalPerspectiveBuilder from "./builders/ExternalPerspectiveBuilder";
-
 const App = () => {
-	registerBuilder('external', ExternalPerspectiveBuilder);
-
 	const urlObj = _url.parse(window.location.search, true);
 	const searchParams = urlObj.query;
 
@@ -31,7 +27,7 @@ const App = () => {
 			                        ComponentFactory={DomainComponentFactory}
 			                        FormFieldFactory={DomainFormFieldFactory}
 			>
-				<PerspectiveContainer PageComponent={InternalPage}
+				<PerspectiveContainer PageComponent={DomainPage}
 				                      PageLayout={PageLayout}
 				                      searchParams={searchParamsWithDefaultPerspective}
 				                      href='./api/1.0.0/config/perspectives'

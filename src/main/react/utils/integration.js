@@ -1,1 +1,1 @@
-export const DEEP_API_URL = "/deep-api/public/1.0";
+export const DOMAIN_API_URL = "/domain-api/public/1.0";

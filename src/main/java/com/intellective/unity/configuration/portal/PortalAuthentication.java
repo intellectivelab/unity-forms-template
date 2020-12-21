@@ -1,4 +1,4 @@
-package com.intellective.unity.security;
+package com.intellective.unity.configuration.portal;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
-public class DeepAuthentication extends AbstractAuthenticationToken implements
-        Serializable {
+public class PortalAuthentication extends AbstractAuthenticationToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final Object principal;
@@ -16,11 +15,11 @@ public class DeepAuthentication extends AbstractAuthenticationToken implements
     /**
      * Creates a token with the supplied array of authorities.
      */
-    public DeepAuthentication(Object principal) {
+    public PortalAuthentication(Object principal) {
         this(principal, null);
     }
 
-    public DeepAuthentication(Object principal, Collection<? extends GrantedAuthority> authorities) {
+    public PortalAuthentication(Object principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = Optional.ofNullable(principal).orElse("anonymous");
         super.setAuthenticated(true); // must use super, as we override

@@ -19,15 +19,14 @@ zuul:
   host:
     socket-timeout-millis: 600000
 
-unity:
-  public:
-    uri: ${unity.url}/${unity.context}/public
-deep-api:
-  public.uri: ${deep-api.url}/${deep-api.context}
-  internal.uri: ${deep-api.url}/${deep-api.context}/internal
+unity-api:
+  uri: ${unity.url}/${unity.context}/public/api/1.0.0
 
 forms-api:
-  public.uri: ${forms-api.url}/${forms-api.context}
+  uri: ${forms-api.url}/${forms-api.context}/1.0.0
+
+domain-api:
+  uri: ${domain-api.url}/${domain-api.context}/1.0.0
 
 ############################################################
 #
@@ -37,30 +36,28 @@ forms-api:
 ---
 #Internal application with build in SSO
 spring:
-  profiles: internal-application
+  profiles: internal
 
 zuul:
   routes:
     api:
-      path: /api/**
-      stripPrefix: false
-      url: ${unity.public.uri}
+      path: /api/1.0.0/**
+      url: ${unity-api.uri}
       sensitiveHeaders:
 
-    public-api:
-      path: /**/public/api/**
-      stripPrefix: false
+    unity-api:
+      path: /**/public/api/1.0.0/**
       url: ${unity.url}
       sensitiveHeaders:
 
     forms-api:
       path: /forms-api/**
-      url: ${forms-api.public.uri}
+      url: ${forms-api.uri}
       sensitiveHeaders: Cookie,Set-Cookie
 
-    deep-api:
-      path: /deep-api/**
-      url: ${deep-api.public.uri}
+    domain-api:
+      path: /domain-api/**
+      url: ${domain-api.uri}
       sensitiveHeaders: Cookie,Set-Cookie
 
 security:
@@ -68,50 +65,46 @@ security:
     client:
       clientId: unity_client
       clientSecret: unity_secret
-      accessTokenUri: ${unity.public.uri}/api/oauth/token
-      userAuthorizationUri: ${unity.public.uri}/api/oauth/authorize
+      accessTokenUri: ${unity.url}/${unity.context}/public/api/oauth/token
+      userAuthorizationUri: ${unity.url}/${unity.context}/public/api/oauth/authorize
     resource:
-      userInfoUri: ${unity.public.uri}/api/userinfo
+      userInfoUri: ${unity.url}/${unity.context}/public/api/userinfo
 
 ---
-#External application with DEEP login
+#Portal application with external login
 spring:
-  profiles: external-application
+  profiles: portal
 
 zuul:
   routes:
     forms-api:
       path: /forms-api/**
-      url: ${forms-api.public.uri}
+      url: ${forms-api.uri}
       sensitiveHeaders: Cookie,Set-Cookie
 
-    deep-api:
-      path: /deep-api/**
-      url: ${deep-api.public.uri}
+    domain-api:
+      path: /domain-api/**
+      url: ${domain-api.uri}
       sensitiveHeaders: Cookie,Set-Cookie
 
     case-api:
       path: /${unity.context}/public/api/1.0.0/cases/**
       url: ${unity.url}
-      strip-prefix: false
       sensitiveHeaders:
 
     case-public-api:
       path: /api/1.0.0/cases/**
-      url: ${unity.public.uri}
-      strip-prefix: false
+      url: ${unity-api.uri}
       sensitiveHeaders:
 
     unty-api:
       path: /api/1.0.0/{spring:config|selectors|lookups|resources}/**
-      url: ${unity.public.uri}
-      strip-prefix: false
+      url: ${unity-api.uri}
       sensitiveHeaders:
 
     unity-public-api:
       path: /${unity.context}/public/api/1.0.0/{spring:config|selectors|lookups|resources}/**
       url: ${unity.url}
-      strip-prefix: false
       sensitiveHeaders:
 
 login:
@@ -119,9 +112,9 @@ login:
   service-account:
     oauth2:
       client:
-        clientId: standalone_epermitting_ui
-        clientSecret: standalone_epermitting_ui_secret
-        accessTokenUri: ${unity.public.uri}/api/oauth/token
+        clientId: epermitting_application
+        clientSecret: epermitting_application_secret
+        accessTokenUri: ${unity.url}/${unity.context}/public/api/oauth/token
         grant-type: client_credentials
 
 feign:
@@ -134,22 +127,17 @@ feign:
 
 security:
   case:
-    author-property-name: EP_AuthorID
-    reviewer-property-name: EP_Reviewer
-    creator-property-name: strAuthor
-    creator-email-property-name: EP_AuthorEmail
-    templates:
-      ST_Case_EP_ePermit_Drafts: AUTHOR
-      ST_Case_EP_ePermit: AUTHOR
-      ST_Case_EP_ePermit_Permits: AUTHOR
-      ST_Case_EP_ePermit_Review: REVIEWER
+    author: EP_AuthorID
+    creator: strAuthor
+    email: EP_AuthorEmail
+    reviewer: EP_Reviewer
 
 ############################################################
 #
 # Environments
 #
 ############################################################
-#  DEEP - local
+#  Local
 ############################################################
 ---
 spring:
@@ -170,132 +158,11 @@ login:
   login-url: https://filings.deep.stag.ct.gov/DEEPPortal/ #staging
 
 unity:
-  url: http://10.18.100.81:9080
-  #  url: http://localhost:9080
-  context: epermitting
+  url: http://localhost:9080
+  context:
 forms-api:
-  url: http://10.18.100.81:9080
-  context: forms-api
-deep-api:
-  url: http://10.18.100.81:9080
-  context: deep-api
-#  public.uri: ${deep-api.url}/public
-#  internal.uri: ${deep-api.url}/internal
-
-############################################################
-#  DEEP - sandbox
-############################################################
----
-spring:
-  profiles: sandbox
-
-server:
-  address: localhost
-  port: 8091
-
-logging:
-  org:
-    springframework:
-      security: debug
-      cloud:
-        netflix: debug
-
-login:
-  login-url: https://filings.deep.stag.ct.gov/DEEPPortal/ #staging
-
-unity:
-  url: http://10.18.100.80:9080 #!!!
-  context: epermitting
-forms-api:
-  url: http://10.18.100.81:9080
-  context: forms-api
-deep-api:
-  url: http://10.18.100.81:9080
-  context: deep-api
-
-
-############################################################
-# DEEP - dev-83 - external application endpoint
-############################################################
----
-spring:
-  profiles: dev-83
-
-server:
-  address: 10.18.100.83
-  port: 8080
-
-login:
-  login-url: https://filings.deep.stag.ct.gov/DEEPPortal/ #staging
-
-unity:
-  url: http://10.18.100.81:9080
-  context: epermitting
-forms-api:
-  url: http://10.18.100.81:9080
-  context: forms-api
-deep-api:
-  url: http://10.18.100.81:9080
-  context: deep-api
-
-
-############################################################
-# DEEP - dev-80 - internal application endpoint
-############################################################
----
-spring:
-  profiles: dev-80
-
-server:
-  address: 10.18.100.80
-  port: 8080
-
-login:
-  login-url: https://filings.deep.stag.ct.gov/DEEPPortal/ #staging
-
-unity:
-  url: http://10.18.100.81:9080
-  context: epermitting
-forms-api:
-  url: http://10.18.100.81:9080
-  context: forms-api
-deep-api:
-  url: http://10.18.100.81:9080
-  context: deep-api
-
-
-
-############################################################
-# Intellective - local
-############################################################
----
-spring:
-  profiles: local-internal
-
-unity:
-  url: http://192.168.0.201
-  context: demo
-forms-api:
-  url: http://localhost:8082
-  context: forms-api
-
-
-############################################################
-# Intellectiv - dev
-############################################################
----
-spring:
-  profiles: dev-internal
-
-server:
-  address: 192.168.0.201
-  port: 8081
-
-unity:
-  url: http://192.168.0.201:9080
-  context: demo
-forms-api:
-  url: http://192.168.0.201:9080
-  context: forms-api
-
-
+  url: http://localhost:9081
+  context:
+domain-api:
+  url: http://localhost:9082
+  context:

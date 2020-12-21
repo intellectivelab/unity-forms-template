@@ -1,4 +1,4 @@
-package com.intellective.unity.configuration.external;
+package com.intellective.unity.configuration.portal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-@Profile("external-application")
+@Profile("portal")
 @ConfigurationProperties("security.case")
 @Value
 @ConstructorBinding

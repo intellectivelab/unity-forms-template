@@ -9,7 +9,7 @@
     mvn clean package
     ```
 * run spring boot application using
-    * profiles: _external-application, local, debug-authentication_  
+    * profiles: _portal, local, debug-authentication_  
     * VM options: _-Dspring.resources.static-locations=file:/C:/**<path_to_epermitting_project>**/epermitting-ui/target/epermitting-ui-1.0.0-SNAPSHOT_
     
 * go to: http://localhost:8091/login?token=<token>
