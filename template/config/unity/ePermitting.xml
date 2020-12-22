@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SolutionConfig SolutionName="DEEP_ePermitting">
+	<FieldSets>
+		<FieldSet ID="ePermit">
+			<Expando Headless="true" Expanded="true">
+				<Field ID="EP_FormID" Label="Application" Favorite="true" FullWidth="true" Required="true"
+				       Lookup="ApplicationLookup"/>
+				<Field ID="EP_RevenueID" Label="Permit Fee" Favorite="true" FullWidth="true" Required="true"
+				       SelectorID="epermitting_RevenueSelector"/>
+			</Expando>
+			<Expando Headless="true" Expanded="true">
+				<Field ID="strAuthor" Label="Creator" ReadOnly="true"/>
+				<Field ID="EP_AuthorEmail" Label="E-mail" Required="true" Ui="email"/>
+				<Field ID="EP_Reviewer" Label="Reviewer" Favorite="true" MultiValue="true"/>
+				<Field ID="EP_AdditionalSubmitter" Label="Additional Submitter" MultiValue="true"/>
+			</Expando>
+			<Field ID="EP_Program" Label="Program Code" Hidden="true"/>
+			<Field ID="EP_Bureau" Label="Bureau" Hidden="true"/>
+			<Field ID="EP_FormVersionID" Label="Form Version ID" Hidden="true"/>
+			<Field ID="EP_Status" Label="Status" Hidden="true"/>
+			<Field ID="dtmDateReceived" Label="Submission Date" Hidden="true"/>
+			<Field ID="EFILE_ClientName" Label="Client Name" Hidden="true"/>
+			<Field ID="strAuthor" Label="User ID" Hidden="true"/>
+			<Field ID="EP_AssignedGroup" Label="Group" Hidden="true"/>
+			<Field ID="EP_SupervisionRequired" Label="Supervision" Hidden="true"/>
+			<Field ID="EP_ApplicationType" Label="Application Type" Hidden="true"/>
+		</FieldSet>
+		<FieldSet ID="Case_Comment">
+			<Field ID="ucmAnnotationComment" Label="Comment" Required="true" MultiRow="true"/>
+		</FieldSet>
+	</FieldSets>
+	<Inbaskets/>
+	<Lookups>
+		<Lookup ID="ApplicationLookup" Type="SearchTemplate">
+			<Parameters>
+				<Parameter Name="SearchTemplate" Value="ST_DB_EP_Application"/>
+
+				<Parameter Name="IdField" Value="form_id"/>
+				<Parameter Name="LabelField" Value="LicenseName"/>
+			</Parameters>
+		</Lookup>
+	</Lookups>
+	<Pages/>
+	<Tools>
+		<Tool Action="AddDocument" ID="UCM_AttachFileNetDocument" Label="Add Local Document" Tooltip="Add Local Document" TwoWayLink="false">
+			<CustomParameters>
+				<Parameter Name="linkStrategy" Value="ucmP8"/>
+			</CustomParameters>
+			<CopyFields/>
+			<Roles/>
+		</Tool>
+	</Tools>
+	<Views>
+		<Cases>
+			<Active>
+				<Tabs CaseType="EP_ePermit">
+					<Roles/>
+					<Tab ID="1" Label="Common Properties" Tooltip="ePermit Properties" Type="Details"
+					     FieldSet="ePermit"/>
+					<Tab ID="2" Label="Application" Tooltip="Application" Type="Application"/>
+					<Tab ID="3" Label="Attachments" Tooltip="Attachments" Type="Application.Attachments"/>
+					<Tab ID="4" Label="Documents" Tooltip="Other Documents" Type="Attachments">
+						<CustomParameters>
+							<Parameter Name="templateSet" Value="search_templates_case_docs_p8"/>
+						</CustomParameters>
+					</Tab>
+					<Tab ID="5" Label="History/Comments" Tooltip="History and Comments" Type="History">
+						<CustomParameters>
+							<Parameter Value="searchTemplate" Name="viewMode"/>
+							<Parameter Value="case-history-search" Name="templateSet"/>
+							<Parameter Value="UCM_CaseHistory_Search" Name="gridId"/>
+						</CustomParameters>
+					</Tab>
+				</Tabs>
+			</Active>
+			<Closed>
+				<Tabs CaseType="EP_ePermit">
+					<Roles/>
+					<Tab ID="1" Label="Common Properties" Tooltip="ePermit Properties" Type="Details"
+					     FieldSet="ePermit"/>
+					<Tab ID="2" Label="Application" Tooltip="Application" Type="Application"/>
+					<Tab ID="3" Label="Attachments" Tooltip="Attachments" Type="Application.Attachments"/>
+					<Tab ID="4" Label="Documents" Tooltip="Other Documents" Type="Attachments">
+						<CustomParameters>
+							<Parameter Name="templateSet" Value="search_templates_case_docs_p8"/>
+						</CustomParameters>
+					</Tab>
+					<Tab ID="5" Label="History/Comments" Tooltip="History and Comments" Type="History">
+						<CustomParameters>
+							<Parameter Value="searchTemplate" Name="viewMode"/>
+							<Parameter Value="case-history-search" Name="templateSet"/>
+							<Parameter Value="UCM_CaseHistory_Search" Name="gridId"/>
+						</CustomParameters>
+					</Tab>
+				</Tabs>
+			</Closed>
+			<Create>
+				<Tabs CaseType="EP_ePermit">
+					<Roles/>
+					<Tab ID="1" Label="Properties" ReadOnly="false" Tooltip="Properties" Type="Details"
+					     FieldSet="ePermit"/>
+				</Tabs>
+			</Create>
+			<Tabs CaseType="EP_ePermit" ViewType="AddComment">
+				<Tab ID="1" Type="Details" Label="Add Comment" Tooltip="Add Comment"
+				     FieldSet="Case_Comment">
+				</Tab>
+			</Tabs>
+		</Cases>
+		<Documents/>
+		<WorkItems/>
+	</Views>
+</SolutionConfig>
