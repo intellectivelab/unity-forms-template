@@ -1,5 +1,5 @@
 {
-  "name": "unity-forms",
+  "name": "@intellective/cra-template-unity-forms",
   "version": "2021.1.0-alpha.1",
   "main": "template.json",
   "description": "Unity Forms Template",
