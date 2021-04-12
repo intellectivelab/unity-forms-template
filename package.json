@@ -1,6 +1,6 @@
 {
   "name": "unity-forms",
-  "version": "2020.1.0-alpha.1",
+  "version": "2021.1.0-alpha.1",
   "main": "template.json",
   "description": "Unity Forms Template",
   "author": {
@@ -29,7 +29,7 @@
     "file-loader": "latest",
     "http-proxy-middleware": "latest",
     "node-rsql-parser": "latest",
-    "sqlite3": "latest",
+    "react-app-rewire-compression-plugin": "^1.0.0",
     "uuid": "latest"
   }
 }
