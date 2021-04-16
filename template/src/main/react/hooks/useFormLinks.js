@@ -2,7 +2,7 @@ import * as R from "ramda";
 
 import {useSelector} from "react-redux";
 
-export const FORMS_API_URL = "/forms-api/1.0.0";
+const FORMS_API_URL = "/forms-api/1.0.0";
 
 export default (props) => {
 

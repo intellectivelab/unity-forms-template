@@ -1,7 +1,9 @@
 import * as R from "ramda";
 
-import useMelissaAddressValidator from "./useMelissaAddressValidator";
+import {useDefaultFormFieldValidator} from "@intellective/core";
 
-export default R.cond([
-	[R.propEq('type', 'address'), R.always(useMelissaAddressValidator)],
+const useDomainFormFieldValidator = R.cond([
+	[R.T, R.always(useDefaultFormFieldValidator)]
 ]);
+
+export default useDomainFormFieldValidator;

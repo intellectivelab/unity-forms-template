@@ -15,7 +15,7 @@ const FIELD_NAMES = [
 	'EP_SupervisionRequired'
 ];
 
-export default (props) => {
+const FormTypeLookupField = (props) => {
 	const {formId} = props;
 
 	const dispatch = useDispatch();
@@ -42,8 +42,12 @@ export default (props) => {
 	const onSelect = (field) => {
 		const data = R.isNil(field) ? clearData() : populateData(field);
 
-		dispatch(forms.updateFormState(formId, { data: data }));
+		dispatch(forms.updateFormState(formId, {data: data}));
 	};
 
-	return <LookupField {...props} onSelect={onSelect}/>;
+	return (
+		<LookupField {...props} onSelect={onSelect}/>
+	);
 };
+
+export default FormTypeLookupField;

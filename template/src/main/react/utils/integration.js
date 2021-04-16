@@ -1,1 +1,1 @@
-export const DOMAIN_API_URL = "/domain-api/public/1.0";
+export const DOMAIN_API_URL = "/domain-api/1.0";
