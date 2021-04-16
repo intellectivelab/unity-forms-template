@@ -32,7 +32,7 @@ const shadows = [
 	"0px 10px 13px -6px rgba(0, 0, 0, 0.06),0px 20px 31px 3px rgba(0, 0, 0, 0.042),0px 8px 38px 7px rgba(0, 0, 0, 0.036)"
 ];
 
-const buildTheme = (options, palette = DomainPalettes.connecticut.palette) => ({
+const buildTheme = (options, palette = DomainPalettes.epermit.palette) => ({
 	typography: {
 		fontSize: 14,
 		body1: {
@@ -51,7 +51,11 @@ const buildTheme = (options, palette = DomainPalettes.connecticut.palette) => ({
 			root: {
 				fontSize: "14px",
 				whiteSpace: "pre-wrap",
-			}
+			},
+            paddingNone: {
+                paddingLeft: "4px",
+                paddingRight: "4px",
+            }
 		},
 		MuiButton: {
 			root: {
@@ -103,6 +107,3 @@ const buildTheme = (options, palette = DomainPalettes.connecticut.palette) => ({
 });
 
 export default (options, palette) => responsiveFontSizes(createMuiTheme(buildTheme(options, palette)));
-
-
-

@@ -2,24 +2,22 @@ import React, {useMemo} from "react";
 
 import * as R from "ramda";
 
-import {ViewApplicationAction} from "@intellective/forms";
+import {useFormLinks, useFormStatus, ViewApplicationAction} from "@intellective/forms";
 
-import useFormLinks from "../../components/useFormLinks/useFormLinks";
-import useFormStatus from "../../components/useFormStatus/useFormStatus";
-import useDomainFormFieldValidator from "../../components/useDomainFormFieldValidator/useDomainFormFieldValidator";
+import useDomainFormFieldValidator from "../../hooks/useDomainFormFieldValidator";
 
 import {DOMAIN_API_URL} from "../../utils/integration";
 
-export default (settings) => (props) => {
+const DomainViewApplicationAction = (settings) => (props) => {
 
 	const onFormCompleteHandler = (formState) => {
 
 		const caseType = R.path(["data", "caseType", "value"], formState);
 		const caseId = R.path(["data", "caseId", "value"], formState);
 
-		const completeLink = DOMAIN_API_URL + `/lifecycle/${caseType}/${caseId}/complete`;
+		const submitLink = DOMAIN_API_URL + `/lifecycle/${caseType}/${caseId}/complete`;
 
-		return fetch(completeLink, {method: 'POST'});
+		return fetch(submitLink, {method: 'POST'});
 	};
 
 	const ActionComponent = useMemo(() => ViewApplicationAction({...settings, useFormLinks, useFormStatus}), []);
@@ -28,3 +26,5 @@ export default (settings) => (props) => {
 		<ActionComponent {...props} validators={useDomainFormFieldValidator} onComplete={onFormCompleteHandler}/>
 	);
 };
+
+export default DomainViewApplicationAction;

@@ -1,9 +1,15 @@
-const styles = theme => ({
+const styles = () => ({
 	root: {
 		//
 	},
 	container: {
 		//
+	},
+	appBarColorPrimary: {
+		backgroundColor: "#fff"
+	},
+	appBarIcon: {
+		color: "#757575"
 	}
 });
 

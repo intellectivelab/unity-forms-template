@@ -3,6 +3,7 @@ import React from "react";
 import * as R from "ramda";
 
 import {DefaultActionFactory, DefaultActionMapper, OneColumnLayout, resources} from '@intellective/core';
+
 import {CreateApplicationAction} from "@intellective/forms";
 
 import DomainViewApplicationAction from "../actions/DomainViewApplicationAction/DomainViewApplicationAction";

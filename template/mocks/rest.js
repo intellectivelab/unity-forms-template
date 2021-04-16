@@ -18,6 +18,12 @@ module.exports = function (app) {
 	unityApiMocks.foldersApi(app, config);
 	unityApiMocks.selectorsApi(app, config);
 
+	app.get('/api/data/export', function (req, res) {
+		const file = `${__dirname}/export/export.csv`;
+
+		res.download(file);
+	});
+
 	app.post('/api/gateway/link/generate/:resourceName/:resourceType/:resourceId', (req, res) => {
 
 		let inputData = req.params.resourceName + '/' + req.params.resourceType

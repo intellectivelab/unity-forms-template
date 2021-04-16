@@ -7,12 +7,11 @@ import {useDispatch} from "react-redux";
 import {forms, LookupField} from "@intellective/core";
 
 const FIELD_NAMES = [
-	//'EP_ApplicationType',
-	'EP_AssignedGroup',
 	'EP_Bureau',
 	'EP_EnvIntTypeCode',
 	'EP_FormVersionID',
 	'EP_Program',
+	'EP_RevenueID',
 	'EP_SupervisionRequired'
 ];
 
@@ -30,11 +29,13 @@ export default (props) => {
 			return R.cond([
 				[R.equals('EP_Program'), R.always({name: value, value: field.program_code || value})],
 				[R.equals('EP_Bureau'), R.always({name: value, value: field.bureau_id || value})],
+				[R.equals('EP_RevenueID'), R.always({name: value, value: field.revenue_id || value})],
 				[R.T, R.always(value)]
 			])(key);
 		};
 
 		const stateFormat = (value, key) => ({value: buildValue(value, key), updated: true});
+
 		return R.mapObjIndexed(stateFormat, picked);
 	};
 
