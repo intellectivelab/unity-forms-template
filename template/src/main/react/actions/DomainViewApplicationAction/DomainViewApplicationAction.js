@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 
 import * as R from "ramda";
 
-import {useFormLinks, useFormStatus, ViewApplicationAction} from "@intellective/forms";
+import {ViewApplicationAction} from "@intellective/forms";
 
 import useDomainFormFieldValidator from "../../hooks/useDomainFormFieldValidator";
 
@@ -20,7 +20,7 @@ const DomainViewApplicationAction = (settings) => (props) => {
 		return fetch(submitLink, {method: 'POST'});
 	};
 
-	const ActionComponent = useMemo(() => ViewApplicationAction({...settings, useFormLinks, useFormStatus}), []);
+	const ActionComponent = useMemo(() => ViewApplicationAction(settings), []);
 
 	return (
 		<ActionComponent {...props} validators={useDomainFormFieldValidator} onComplete={onFormCompleteHandler}/>

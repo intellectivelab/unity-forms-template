@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer} from '@intellective/core';
+
 import {FormCtxt} from '@intellective/forms';
 
 import _url from "url";
@@ -21,7 +22,7 @@ const App = () => {
 	const urlObj = _url.parse(window.location.search, true);
 	const searchParams = urlObj.query;
 
-	const searchParamsWithDefaultPerspective = {...searchParams};
+	const searchParamsWithDefaultPerspective = {p: "external", ...searchParams};
 
 	return (
 		<DefaultThemeProvider Builder={DomainThemeBuilder} Palettes={DomainPalettes} paletteName="epermit">
