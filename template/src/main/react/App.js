@@ -6,17 +6,17 @@ import {FormCtxt} from '@intellective/forms';
 
 import _url from "url";
 
-import DomainPalettes from "./themes/DomainPalettes";
-import DomainThemeBuilder from "./themes/DomainThemeBuilder";
+import DomainPalettes from "./domain/themes/DomainPalettes";
+import DomainThemeBuilder from "./domain/themes/DomainThemeBuilder";
 
-import DomainActionFactory from "./factories/DomainActionFactory";
-import DomainComponentFactory from "./factories/DomainComponentFactory";
-import DomainFormFieldFactory from "./factories/DomainFormFieldFactory";
+import DomainActionFactory from "./domain/factories/DomainActionFactory";
+import DomainComponentFactory from "./domain/factories/DomainComponentFactory";
+import DomainFormFieldFactory from "./domain/factories/DomainFormFieldFactory";
 
-import DomainPage from "./pages/DomainPage/DomainPage";
+import DomainPage from "./domain/pages/DomainPage/DomainPage";
 
-import useFormLinks from "./hooks/useFormLinks";
-import useFormStatus from "./hooks/useFormStatus";
+import useFormLinks from "./domain/hooks/useFormLinks";
+import useFormStatus from "./domain/hooks/useFormStatus";
 
 const App = () => {
 	const urlObj = _url.parse(window.location.search, true);
